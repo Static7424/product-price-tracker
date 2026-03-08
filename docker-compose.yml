@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:${POSTGRES_VERSION:-17}-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pricetracker
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d pricetracker"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./scripts/pg_tables.sql:/docker-entrypoint-initdb.d/pg_tables.sql:ro
+
+  product-price-tracker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: product-price-tracker
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
