@@ -12,3 +12,5 @@ CREATE TABLE IF NOT EXISTS prices (
     recorded_at TIMESTAMP NOT NULL DEFAULT NOW(),
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
+
+CREATE INDEX IF NOT EXISTS idx_prices_product_id_recorded_at ON prices(product_id, recorded_at);
