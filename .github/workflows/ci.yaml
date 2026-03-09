@@ -32,6 +32,9 @@ jobs:
       
       - name: Run Tests
         run: uv run pytest
+
+      - name: Upload Test Coverage
+        uses: codecov/codecov-action@v4
       
       - name: Security Scan (Bandit)
         run: uv run bandit -r src/

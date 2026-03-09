@@ -1,10 +1,13 @@
 # Product Price Tracker
 
 ![CI](https://github.com/Static7424/product-price-tracker/actions/workflows/ci.yaml/badge.svg)
-![Python](https://img.shields.io/badge/python-3.13-blue)
-![Lint](https://img.shields.io/badge/lint-ruff-blue)
-![Docker](https://img.shields.io/badge/docker-enabled-blue)
-![Docker Image](https://img.shields.io/badge/docker-ghcr-blue)
+![Tests](https://img.shields.io/badge/tested_with-pytest-0A9EDC)
+[![codecov](https://codecov.io/gh/Static7424/product-price-tracker/branch/main/graph/badge.svg)](https://codecov.io/gh/Static7424/product-price-tracker)
+![Lint](https://img.shields.io/badge/lint-ruff-cc66ff)
+![Security](https://img.shields.io/badge/security-bandit-orange)
+![Python](https://img.shields.io/pypi/pyversions/fastapi)
+![Docker](https://img.shields.io/badge/docker-ghcr.io-blue)
+![License](https://img.shields.io/github/license/Static7424/product-price-tracker)
 
 Track grocery prices over time from supermarkets using a browser extension and backend API.
 
@@ -75,6 +78,7 @@ product-price-tracker/
 │ └── main.py
 │
 ├── tests/
+│ ├── conftest.py
 │ ├── test_prices.py
 │ └── test_products.py
 │
