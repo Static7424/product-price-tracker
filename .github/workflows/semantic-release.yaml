@@ -37,5 +37,7 @@ jobs:
       - name: Run semantic-release
         id: semantic-release
         uses: cycjimmy/semantic-release-action@v4
+        with:
+          extra_plugins: conventional-changelog-conventionalcommits
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
