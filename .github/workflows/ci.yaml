@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: test
     env:
+      ENVIRONMENT: ${{ vars.ENVIRONMENT }}
       POSTGRES_VERSION: ${{ vars.POSTGRES_VERSION }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
       POSTGRES_DATABASE: ${{ vars.POSTGRES_DATABASE }}
