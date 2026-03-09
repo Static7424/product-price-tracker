@@ -14,6 +14,4 @@ class PriceRecordResponse(BaseModel):
     product_price: float
     recorded_at: datetime
 
-    model_config = {
-        "from_attributes": True
-    }
+    model_config = {"from_attributes": True}

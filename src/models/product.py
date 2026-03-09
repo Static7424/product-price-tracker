@@ -14,9 +14,7 @@ class ProductRegisterResponse(BaseModel):
     product_name: str
     product_url: str
 
-    model_config = {
-        "from_attributes": True
-    }
+    model_config = {"from_attributes": True}
 
 
 class ProductHistoryResponse(BaseModel):
@@ -24,9 +22,7 @@ class ProductHistoryResponse(BaseModel):
     product_id: str
     product_prices: list[PriceRecordResponse]
 
-    model_config = {
-        "from_attributes": True
-    }
+    model_config = {"from_attributes": True}
 
 
 class ProductResponse(BaseModel):
@@ -35,6 +31,4 @@ class ProductResponse(BaseModel):
     product_name: str
     product_url: str
 
-    model_config = {
-        "from_attributes": True
-    }
+    model_config = {"from_attributes": True}
