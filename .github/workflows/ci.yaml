@@ -15,27 +15,44 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:${POSTGRES_VERSION:-17}-alpine
+        env:
+          POSTGRES_DB: ${POSTGRES_DATABASE}
+          POSTGRES_USER: ${POSTGRES_USER}
+          POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        options: >-
+          --health-cmd "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DATABASE}"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - "${POSTGRES_PORT:-5432}:5432"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
+      - name: Initialize Database
+        run: PGPASSWORD=${POSTGRES_PASSWORD} psql -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DATABASE} -f database/init_db.sql
+
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
           version: "0.6.1"
-      
+
       - name: Lint (Ruff)
         run: uv run ruff check .
-      
+
       - name: Format Check
         run: uv run ruff format --check .
-      
+
       - name: Run Tests
         run: uv run pytest
 
       - name: Upload Test Coverage
         uses: codecov/codecov-action@v4
-      
+
       - name: Security Scan (Bandit)
         run: uv run bandit -r src/
 

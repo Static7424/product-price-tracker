@@ -38,6 +38,7 @@ Issues = "https://github.com/Static7424/product-price-tracker/issues"
 exclude = ["tests/"]
 
 [tool.pytest.ini_options]
+pythonpath = ["."]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]

@@ -1,10 +1,11 @@
 def test_register_product(client):
     response = client.post(
-        "/products/regsiter",
-        json = {
+        "/products/register",
+        data={
             "product_id": "1",
-            "name": "Test Product"
-        }
+            "product_name": "Test Product",
+            "product_url": "https://example.com/product/1",
+        },
     )
-    
-    assert (response.status_code == 200)
+
+    assert response.status_code == 201

@@ -11,7 +11,8 @@ from src.routes import prices, products
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    engine = create_engine(settings.database_url)
+    database_url = f"postgresql+psycopg://{settings.postgres_user}:{settings.postgres_password}@{settings.postgres_url}/{settings.postgres_database}"
+    engine = create_engine(database_url)
     Reflected.prepare(engine)
     app.state.session_factory = sessionmaker(
         autocommit=False, autoflush=False, bind=engine

@@ -1,5 +1,6 @@
 from fastapi import Request
-from sqlalchemy.orm import DeclarativeBase, DeferredReflection
+from sqlalchemy.ext.declarative import DeferredReflection
+from sqlalchemy.orm import DeclarativeBase
 
 
 class Base(DeclarativeBase):
