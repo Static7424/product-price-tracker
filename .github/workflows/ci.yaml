@@ -16,21 +16,21 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      POSTGRES_VERSION: "17"
-      POSTGRES_PORT: "5432"
-      POSTGRES_DATABASE: "pricetracker"
-      POSTGRES_USER: "user"
-      POSTGRES_PASSWORD: "password"
-      POSTGRES_URL: "localhost:5432"
+      POSTGRES_VERSION: ${{ vars.POSTGRES_VERSION }}
+      POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+      POSTGRES_DATABASE: ${{ vars.POSTGRES_DATABASE }}
+      POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_URL: ${{ vars.POSTGRES_URL }}
     services:
       postgres:
-        image: postgres:${{ env.POSTGRES_VERSION }}-alpine
+        image: postgres:${{ vars.POSTGRES_VERSION }}-alpine
         env:
-          POSTGRES_DB: ${{ env.POSTGRES_DATABASE }}
-          POSTGRES_USER: ${{ env.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ vars.POSTGRES_DATABASE }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
         ports:
-          - "${{ env.POSTGRES_PORT }}:5432"
+          - "${{ vars.POSTGRES_PORT }}:5432"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
