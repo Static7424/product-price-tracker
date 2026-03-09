@@ -17,8 +17,7 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: >-
-      github.event_name == "workflow_dispatch" || github.event.workflow_run.conclusion == "success"
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Generate GitHub App Token
         id: app-token
