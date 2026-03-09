@@ -4,8 +4,8 @@ from sqlalchemy.orm import Session
 
 from src.database.database import get_db
 from src.models.price import Price
-from src.models.product import (
-    Product,
+from src.models.product import Product
+from src.schemas.products import (
     ProductHistoryResponse,
     ProductRegisterResponse,
     ProductResponse,

@@ -3,7 +3,8 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from src.database.database import get_db
-from src.models.price import Price, PriceRecordResponse
+from src.models.price import Price
+from src.schemas.prices import PriceRecordResponse
 
 
 router = APIRouter(prefix="/prices", tags=["prices"])
