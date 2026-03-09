@@ -1,6 +1,6 @@
 # Product Price Tracker
 
-![CI](https://github.com/Static7424/product-price-tracker/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/Static7424/product-price-tracker/actions/workflows/ci.yaml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.13-blue)
 ![Lint](https://img.shields.io/badge/lint-ruff-blue)
 ![Docker](https://img.shields.io/badge/docker-enabled-blue)
@@ -41,6 +41,7 @@ product-price-tracker/
 ├── .github/
 │ └── workflows/
 │   ├── ci.yaml
+│   ├── publish.yaml
 │   └── semantic-release.yaml
 │
 ├── database
