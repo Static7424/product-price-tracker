@@ -33,6 +33,9 @@ Homepage = "https://github.com/Static7424/product-price-tracker"
 Repository = "https://github.com/Static7424/product-price-tracker"
 Issues = "https://github.com/Static7424/product-price-tracker/issues"
 
+[tool.ruff]
+exclude = ["tests/"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]

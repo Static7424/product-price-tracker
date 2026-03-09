@@ -1,13 +1,14 @@
 # Product Price Tracker
 
-![CI](https://github.com/Static7424/product-price-tracker/actions/workflows/ci.yaml/badge.svg)
+[![CI](https://github.com/Static7424/product-price-tracker/actions/workflows/ci.yaml/badge.svg)](https://github.com/Static7424/product-price-tracker/actions/workflows/ci.yaml)
 ![Tests](https://img.shields.io/badge/tested_with-pytest-0A9EDC)
 [![codecov](https://codecov.io/gh/Static7424/product-price-tracker/branch/main/graph/badge.svg)](https://codecov.io/gh/Static7424/product-price-tracker)
 ![Lint](https://img.shields.io/badge/lint-ruff-cc66ff)
 ![Security](https://img.shields.io/badge/security-bandit-orange)
-![Python](https://img.shields.io/pypi/pyversions/fastapi)
-![Docker](https://img.shields.io/badge/docker-ghcr.io-blue)
-![License](https://img.shields.io/github/license/Static7424/product-price-tracker)
+![Python](https://img.shields.io/badge/python-3.13-blue)
+[![Docker](https://img.shields.io/badge/docker-ghcr.io-blue)](https://github.com/Static7424/product-price-tracker/packages)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/Static7424/product-price-tracker/blob/main/LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/Static7424/product-price-tracker)](https://github.com/Static7424/product-price-tracker/commits)
 
 Track grocery prices over time from supermarkets using a browser extension and backend API.
 
