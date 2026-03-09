@@ -1,0 +1,41 @@
+name: Semantic Release
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    branches: ["main"]
+    types: ["completed"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name == "workflow_dispatch" || github.event.workflow_run.conclusion == "success"
+    steps:
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          owner: ${{ github.repository_owner }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Run semantic-release
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}

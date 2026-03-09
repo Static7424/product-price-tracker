@@ -1,0 +1,19 @@
+{
+    "branches": ["main"],
+    "plugins": [
+        [
+            "@semantic-release/commit-analyzer",
+            {
+                "preset": "conventialcommits",
+                "releaseRules": [
+                    {
+                        "type": "feat",
+                        "release": "minor"
+                    }
+                ]
+            }
+        ],
+        "@semantic-release/release-notes-generator",
+        "@semantic-release/github"
+    ]
+}
