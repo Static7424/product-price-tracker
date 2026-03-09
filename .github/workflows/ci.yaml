@@ -15,6 +15,7 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: test
     env:
       POSTGRES_VERSION: ${{ vars.POSTGRES_VERSION }}
       POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
