@@ -1,6 +1,6 @@
 [project]
 name = "product-price-tracker"
-version = "1.0.4"
+version = "1.0.5"
 description = "Backend FastAPI implementation of a product price tracker."
 readme = "README.md"
 requires-python = ">=3.13"
