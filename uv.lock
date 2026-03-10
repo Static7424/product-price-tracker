@@ -528,7 +528,7 @@ wheels = [
 [[package]]
 name = "product-price-tracker"
 version = "1.0.5"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "fastapi-pagination" },
