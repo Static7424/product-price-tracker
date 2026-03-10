@@ -4,7 +4,6 @@ from sqlalchemy.orm import DeclarativeBase, Session
 from typing import Annotated
 
 
-
 class Base(DeclarativeBase):
     pass
 

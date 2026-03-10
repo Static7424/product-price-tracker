@@ -76,7 +76,5 @@ def price_history(
 
     return paginate(
         db,
-        select(Price)
-        .where(Price.product_id == product_id)
-        .order_by(Price.recorded_at),
+        select(Price).where(Price.product_id == product_id).order_by(Price.recorded_at),
     )
