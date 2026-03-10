@@ -1,9 +1,8 @@
-from fastapi import APIRouter, Depends, Form, HTTPException, Path
+from fastapi import APIRouter, Form, HTTPException, Path
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import Session
 from typing import Annotated
 
-from src.database.database import get_db
+from src.database.database import DBSession
 from src.models.product import Product
 from src.schemas.products import (
     ProductRegisterResponse,
@@ -33,7 +32,7 @@ def register_product(
         str,
         Form(..., description="URL to the product to register."),
     ],
-    db: Session = Depends(get_db),
+    db: DBSession,
 ):
     product = Product(
         product_id=product_id, product_name=product_name, product_url=product_url
@@ -62,7 +61,7 @@ def product_id(
         str,
         Path(..., description="Product ID to get.", max_length=100),
     ],
-    db: Session = Depends(get_db),
+    db: DBSession,
 ):
     product = db.query(Product).filter(Product.product_id == product_id).first()
     if not product:

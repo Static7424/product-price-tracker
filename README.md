@@ -69,6 +69,7 @@ product-price-tracker/
 │ │ └── product.py
 │ │
 │ ├── routes/
+│ │ ├── health.py
 │ │ ├── prices.py
 │ │ └── products.py
 │ │

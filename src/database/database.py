@@ -1,6 +1,8 @@
-from fastapi import Request
+from fastapi import Depends, Request
 from sqlalchemy.ext.declarative import DeferredReflection
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, Session
+from typing import Annotated
+
 
 
 class Base(DeclarativeBase):
@@ -17,3 +19,6 @@ def get_db(request: Request):
         yield session
     finally:
         session.close()
+
+
+DBSession = Annotated[Session, Depends(get_db)]

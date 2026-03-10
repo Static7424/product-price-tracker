@@ -44,9 +44,9 @@ def test_get_prices_history(client, test_get_prices_history_input):
 
     if (response_data.get("product_prices", None)):
         formatted_response = []
-        for price in response.json()["product_prices"]:
+        for price in response.json()["items"]:
             price.pop("id", None)
             price.pop("recorded_at", None)
             formatted_response.append(price)
-        
+
         assert(formatted_response == response_data["product_prices"])

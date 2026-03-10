@@ -1,14 +1,17 @@
 from decimal import Decimal
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Form, HTTPException, Path
+from fastapi import APIRouter, Form, HTTPException, Path
+from fastapi_pagination import Page
+from fastapi_pagination.ext.sqlalchemy import paginate
+from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import Session
 
-from src.database.database import get_db
+from src.database.database import DBSession
 from src.models.price import Price
 from src.models.product import Product
-from src.schemas.prices import PriceHistoryResponse, PriceRecordResponse
+from src.schemas.prices import PriceEntry, PriceRecordResponse
+
 
 router = APIRouter(prefix="/prices", tags=["prices"])
 
@@ -34,7 +37,7 @@ def record_price(
             max_digits=10,
         ),
     ],
-    db: Session = Depends(get_db),
+    db: DBSession,
 ):
     price = Price(product_id=product_id, product_price=product_price)
 
@@ -54,7 +57,7 @@ def record_price(
 
 @router.get(
     "/{product_id}/history",
-    response_model=PriceHistoryResponse,
+    response_model=Page[PriceEntry],
     summary="Get the historic prices for a particular product ID.",
 )
 def price_history(
@@ -62,7 +65,7 @@ def price_history(
         str,
         Path(..., description="Product ID to get historic prices for.", max_length=100),
     ],
-    db: Session = Depends(get_db),
+    db: DBSession,
 ):
     product = db.query(Product).filter(Product.product_id == product_id).first()
     if not product:
@@ -71,13 +74,9 @@ def price_history(
             detail=f"Product ID '{product_id}' has not been registered. Please register it with `/products/register`.",
         )
 
-    product_prices = (
-        db.query(Price)
-        .filter(Price.product_id == product_id)
-        .order_by(Price.recorded_at)
-        .all()
-    )
-
-    return PriceHistoryResponse(
-        id=product.id, product_id=product.product_id, product_prices=product_prices
+    return paginate(
+        db,
+        select(Price)
+        .where(Price.product_id == product_id)
+        .order_by(Price.recorded_at),
     )
