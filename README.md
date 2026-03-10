@@ -86,10 +86,10 @@ product-price-tracker/
 ├── .env.example
 ├── .gitignore
 ├── .releaserc.json
-├── docker-compose.yml
 ├── LICENSE
-├── pyproject.toml
 ├── README.md
+├── docker-compose.yml
+├── pyproject.toml
 └── uv.lock
 ```
 
