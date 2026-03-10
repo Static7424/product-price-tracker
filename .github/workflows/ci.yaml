@@ -62,7 +62,9 @@ jobs:
         run: uv run pytest
 
       - name: Upload Test Coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
+        with:
+          files: coverage.xml
 
       - name: Security Scan (Bandit)
         run: uv run bandit -r src/
@@ -79,4 +81,4 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Docker Build Verification
-        run: docker build .
+        run: docker build -f docker/Dockerfile .

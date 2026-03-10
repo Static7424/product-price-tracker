@@ -45,6 +45,7 @@ python_functions = ["test_*"]
 addopts = [
     "--cov=.",
     "--cov-report=term-missing",
+    "--cov-report=xml",
 ]
 
 [tool.coverage.run]

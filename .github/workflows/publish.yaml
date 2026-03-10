@@ -44,7 +44,7 @@ jobs:
 
       - name: Build Image
         run: |
-          docker build \
+          docker build -f docker/Dockerfile \
             -t ${{ steps.image.outputs.name }}:${{ steps.version.outputs.version }} \
             -t ${{ steps.image.outputs.name }}:latest \
             .
