@@ -1,4 +1,8 @@
+.coverage
 .env
 .ruff_cache/*
 .venv/*
+coverage.xml
 **/__pycache__/**
+
+.vscode/settings.json

@@ -79,9 +79,15 @@ product-price-tracker/
 │ └── main.py
 │
 ├── tests/
-│ ├── conftest.py
-│ ├── test_prices.py
-│ └── test_products.py
+│ ├── test_prices/
+│ │ ├── conftest.py
+│ │ └── test_prices.py
+│ │
+│ ├── test_products/
+│ │ ├── conftest.py
+│ │ └── test_products.py
+│ │
+│ └── conftest.py
 │
 ├── .env.example
 ├── .gitignore

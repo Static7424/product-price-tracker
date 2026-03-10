@@ -1,12 +1,11 @@
 from fastapi import APIRouter, Depends, Form, HTTPException, Path
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
+from typing import Annotated
 
 from src.database.database import get_db
-from src.models.price import Price
 from src.models.product import Product
 from src.schemas.products import (
-    ProductHistoryResponse,
     ProductRegisterResponse,
     ProductResponse,
 )
@@ -22,9 +21,18 @@ router = APIRouter(prefix="/products", tags=["products"])
     summary="Register a new product to the PostGres DB.",
 )
 def register_product(
-    product_id: str = Form(..., description="Product ID to register."),
-    product_name: str = Form(..., description="Product name to register."),
-    product_url: str = Form(..., description="URL to the product to register."),
+    product_id: Annotated[
+        str,
+        Form(..., description="Product ID to register", max_length=100),
+    ],
+    product_name: Annotated[
+        str,
+        Form(..., description="Product name to register.", max_length=100),
+    ],
+    product_url: Annotated[
+        str,
+        Form(..., description="URL to the product to register."),
+    ],
     db: Session = Depends(get_db),
 ):
     product = Product(
@@ -38,7 +46,7 @@ def register_product(
     except IntegrityError:
         db.rollback()
         raise HTTPException(
-            status_code=409, detail="Product with this ID already exists."
+            status_code=409, detail=f"Product ID '{product_id}' already exists."
         )
 
     return product
@@ -50,36 +58,17 @@ def register_product(
     summary="Get a registered product for a particular product ID.",
 )
 def product_id(
-    product_id: str = Path(..., description="Product ID to get."),
+    product_id: Annotated[
+        str,
+        Path(..., description="Product ID to get.", max_length=100),
+    ],
     db: Session = Depends(get_db),
 ):
     product = db.query(Product).filter(Product.product_id == product_id).first()
     if not product:
-        raise HTTPException(status_code=404, detail="Product not found.")
+        raise HTTPException(
+            status_code=404,
+            detail=f"Product ID '{product_id}' has not been registered. Please register it with `/products/register`.",
+        )
 
     return product
-
-
-@router.get(
-    "/{product_id}/history",
-    response_model=ProductHistoryResponse,
-    summary="Get the historic prices for a particular product ID.",
-)
-def product_id_history(
-    product_id: str = Path(..., description="Product ID to get historic prices for."),
-    db: Session = Depends(get_db),
-):
-    product = db.query(Product).filter(Product.product_id == product_id).first()
-    if not product:
-        raise HTTPException(status_code=404, detail="Product not found.")
-
-    product_prices = (
-        db.query(Price)
-        .filter(Price.product_id == product_id)
-        .order_by(Price.recorded_at)
-        .all()
-    )
-
-    return ProductHistoryResponse(
-        id=product.id, product_id=product.product_id, product_prices=product_prices
-    )
