@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 jobs:
   ghcr:
@@ -31,7 +32,7 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
 
       - name: Login to GHCR
-        run: echo "${{ steps.app-token.outputs.token }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Extract Version
         id: version
