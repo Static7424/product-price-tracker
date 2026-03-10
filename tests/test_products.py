@@ -14,7 +14,7 @@ def test_register_product_2(client):
     response = client.post(
         "/products/register",
         data={
-            "product_id": "1",
+            "product_id": "2",
             "product_name": "Test Product",
             "product_url": "https://example.com/product/1",
         },
