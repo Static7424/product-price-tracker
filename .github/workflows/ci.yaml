@@ -13,6 +13,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   test:
@@ -66,6 +67,7 @@ jobs:
       - name: Upload Test Coverage
         uses: codecov/codecov-action@v5
         with:
+          use_oidc: true
           files: coverage.xml
 
       - name: Security Scan (Bandit)
