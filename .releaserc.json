@@ -15,6 +15,19 @@
         ],
         "@semantic-release/release-notes-generator",
         [
+            "@semantic-release/exec",
+            {
+                "prepareCmd": "sed -i 's/^version = .*/version = \"${nextRelease.version}\"/' pyproject.toml"
+            }
+        ],
+        [
+            "@semantic-release/git",
+            {
+                "assets": ["pyproject.toml"],
+                "message": "chore: Release ${nextRelease.version}"
+            }
+        ],
+        [
             "@semantic-release/github",
             {
                 "successComment": false,
